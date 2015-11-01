@@ -25,6 +25,14 @@ DIALOG_EMPTY_ROOM = [
     "Aca no hay nada"
 ]
 
+DIALOG_BOSS_ALIVE = [
+    "BOSS_INTRO_ALIVE"
+]
+
+DIALOG_BOSS_DEAD = [
+    "BOSS_INTRO_DEAD"
+]
+
 
 class MapTile:
     def __init__(self, x, y):
@@ -98,23 +106,38 @@ class LootRoom(MapTile):
         player.inventory.append(self.item)
 
 
+class EmptyRoom(MapTile):
+    if config.DEBUG:
+        name = "V"
+
+    def __init__(self, x, y, *args):
+        self.intro = choice(DIALOG_EMPTY_ROOM)
+        super().__init__(x, y)
+
+    def intro_text(self):
+        return self.intro
+
+    def modify_player(self, player):
+        pass
+
+
 class EnemyRoom(MapTile):
     if config.DEBUG:
         name = "E"
 
-    def __init__(self, x, y, lvl, boss=False):
+    def __init__(self, x, y, lvl):
         enemy = choice(enemies.get_lvl_enemies(lvl))()
-        if boss:
-            while not enemy.is_boss:
-                enemy = choice(enemies.get_lvl_enemies(lvl))()
+
         self.enemy = enemy
+        self.intro_alive = choice(DIALOG_INTROS_ALIVE)
+        self.intro_dead = choice(DIALOG_INTROS_DEAD)
         super().__init__(x, y)
 
     def intro_text(self):
         if self.enemy.is_alive():
-            text = choice(DIALOG_INTROS_ALIVE)
+            text = self.intro_alive
         else:
-            text = choice(DIALOG_INTROS_DEAD)
+            text = self.intro_dead
         return text.format(self.enemy.name)
 
     def modify_player(self, player):
@@ -126,18 +149,39 @@ class EnemyRoom(MapTile):
         if self.enemy.is_alive():
             return [actions.Attack(enemy=self.enemy)]
         else:
-            return self.adjacent_moves()
+            moves = self.adjacent_moves()
+            moves.append(actions.ViewInventory())
+            return moves
 
 
-class EmptyRoom(MapTile):
-    if config.DEBUG:
-        name = "V"
+class BossRoom(MapTile):
+    def __init__(self, x, y, lvl):
+        boss = choice(enemies.get_lvl_bosses(lvl))()
 
-    def __init__(self, x, y, *args):
+        self.enemy = boss
+        self.intro_alive = choice(DIALOG_BOSS_ALIVE)
+        self.intro_dead = choice(DIALOG_BOSS_DEAD)
         super().__init__(x, y)
 
     def intro_text(self):
-        return choice(DIALOG_EMPTY_ROOM)
+        if self.enemy.is_alive():
+            text = self.intro_alive
+        else:
+            text = self.intro_dead
+
+        return text.format(self.enemy.name)
 
     def modify_player(self, player):
-        pass
+        if self.enemy.is_alive():
+            player.hp = player.hp - self.enemy.damage
+            print("El enemigo te hizo {} de daño. Te quedan {} de HP.".format(self.enemy.damage, player.hp))
+
+    def available_actions(self):
+        if self.enemy.is_alive():
+            return [actions.Attack(enemy=self.enemy)]
+        else:
+            moves = self.adjacent_moves()
+            moves.append(actions.ViewInventory())
+            moves.append(actions.Win())
+            return moves
+

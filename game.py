@@ -30,6 +30,10 @@ def play():
                         print(room.intro_text())
                     break
 
+    if not player.is_alive():
+        print("PERDISTE!")
+    elif player.victory:
+        print("GANASTE!")
 
 if __name__ == '__main__':
     play()

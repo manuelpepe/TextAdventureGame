@@ -63,6 +63,14 @@ class Daga(Arma):
                          damage=10)
 
 
+class EspadaDePiedra(Arma):
+    def __init__(self):
+        super().__init__(name="Espada de Piedra",
+                         description="Una espada de piedra, parece bastante buena",
+                         value=20,
+                         damage=25)
+
+
 def get_items():
     """
     Devuelve una lista con todos los items del juego

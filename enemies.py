@@ -18,11 +18,12 @@ __author__ = 'Manuel'
 
 class Enemigo:
     """ La clase principal para los enemigos """
-    def __init__(self, name, hp, damage, is_boss=False):
+    def __init__(self, name, hp, damage):
+
         self.name = name
         self.hp = hp
+        self.max_hp = hp
         self.damage = damage
-        self.is_boss = is_boss
 
     def is_alive(self):
         return self.hp > 0
@@ -30,6 +31,7 @@ class Enemigo:
 
 class Soldado(Enemigo):
     lvl = 0
+    is_boss = False
 
     def __init__(self):
         super().__init__(name="Soldado",
@@ -39,6 +41,7 @@ class Soldado(Enemigo):
 
 class Guerrero(Enemigo):
     lvl = 0
+    is_boss = False
 
     def __init__(self):
         super().__init__(name="Guerrero",
@@ -48,6 +51,7 @@ class Guerrero(Enemigo):
 
 class Arquero(Enemigo):
     lvl = 0
+    is_boss = False
 
     def __init__(self):
         super().__init__(name="Arquero",
@@ -57,6 +61,7 @@ class Arquero(Enemigo):
 
 class Lancero(Enemigo):
     lvl = 0
+    is_boss = False
 
     def __init__(self):
         super().__init__(name="Lancero",
@@ -66,31 +71,43 @@ class Lancero(Enemigo):
 
 class MaestroDeArmas(Enemigo):
     lvl = 0
+    is_boss = True
 
     def __init__(self):
         super().__init__(name="Maestro de Armas",
                          hp=35,
-                         damage=35,
-                         is_boss=True)
+                         damage=35)
 
 
 class DragonRojo(Enemigo):
     lvl = 0
+    is_boss = True
 
     def __init__(self):
         super().__init__(name="Dragon Rojo",
                          hp=50,
-                         damage=25,
-                         is_boss=True)
+                         damage=25)
 
 
 def get_lvl_enemies(lvl):
-    """ Devuelve todos los enemigos del juego """
+    """ Devuelve todos los enemigos del nivel """
     enemy_list = []
 
     for name, obj in inspect.getmembers(sys.modules[__name__]):
         if inspect.isclass(obj) and name != "Enemigo":
-            if obj.lvl == lvl:
+            if obj.lvl == lvl and not obj.is_boss:
                 enemy_list.append(obj)
 
     return enemy_list
+
+
+def get_lvl_bosses(lvl):
+    """ Devuelve todos los jefes del nivel """
+    boss_list = []
+
+    for name, obj in inspect.getmembers(sys.modules[__name__]):
+        if inspect.isclass(obj) and name != "Enemigo":
+            if obj.lvl == lvl and obj.is_boss:
+                boss_list.append(obj)
+
+    return boss_list

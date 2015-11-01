@@ -18,7 +18,7 @@ _layout = [[tiles.StartingRoom(0, 0), tiles.LootRoom(1, 0, 0), tiles.EnemyRoom(2
            [None, tiles.EmptyRoom(1, 1), tiles.EmptyRoom(2, 1), None, None],
            [None, None, tiles.EnemyRoom(2, 2, 0), tiles.EnemyRoom(3, 2, 0), tiles.EmptyRoom(4, 2)],
            [None, None, None, tiles.EmptyRoom(3, 3), None],
-           [None, None, None, tiles.EnemyRoom(3, 4, 0), None]]
+           [None, None, None, tiles.BossRoom(3, 4, 0), None]]
 
 lvl = 0
 _world = {}

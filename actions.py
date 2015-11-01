@@ -52,6 +52,13 @@ class ViewInventory(Action):
 class Attack(Action):
     def __init__(self, enemy):
         super().__init__(method=Player.attack,
-                         name="Atacar",
+                         name='Atacar',
                          hotkey='a',
                          enemy=enemy)
+
+
+class Win(Action):
+    def __init__(self):
+        super().__init__(method=Player.win,
+                         name='Rescatar a la princesa y salir del castillo!',
+                         hotkey='b')

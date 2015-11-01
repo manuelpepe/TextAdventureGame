@@ -7,7 +7,7 @@ __author__ = 'Manuel'
 
 class Player:
     def __init__(self):
-        self.inventory = [items.Oro(15), items.Piedra()]
+        self.inventory = [items.Oro(15), items.EspadaDePiedra()]
         self.hp = 100
         self.location_x, self.location_y = world.start_pos
         self.victory = False
@@ -57,12 +57,15 @@ class Player:
             print("Mataste a {}!".format(enemy.name))
             # El jugador se cura un valor igual a
             # la vida del enemigo +- un porcentaje aleatorio de ese valor
-            cut = randint(10, 30) * enemy.hp / 100
-            cure = randint(enemy.hp - cut, enemy.hp + cut)
+            cut = randint(10, 30) * enemy.max_hp / 100
+            cure = randint(round(enemy.max_hp - cut), round(enemy.max_hp + cut))
             self.hp += cure
             print("Te curaste {} de vida".format(cure))
         else:
             print("A {} le quedan {} de HP".format(enemy.name, enemy.hp))
+
+    def win(self):
+        self.victory = True
 
     def do_action(self, action, **kwargs):
         action_method = getattr(self, action.method.__name__)
