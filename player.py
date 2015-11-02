@@ -42,6 +42,9 @@ class Player:
         """
         Elige el mejor arma que tenga el jugador en el inventario
         y le saca al enemigo el daño de dicha arma
+
+        Args:
+            enemy: El enemigo
         """
         best_weapon = None
         max_dmg = 0

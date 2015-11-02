@@ -8,7 +8,7 @@ __author__ = 'Manuel'
 """
 
 # Agregar:
-#     - Araña\
+#     - Araï¿½a\
 #     - Fantasma
 #     - Murcielago
 #     - Mago
@@ -90,7 +90,12 @@ class DragonRojo(Enemigo):
 
 
 def get_lvl_enemies(lvl):
-    """ Devuelve todos los enemigos del nivel """
+    """
+    Devuelve todos los enemigos del nivel
+
+    Args:
+        lvl: Nivel en el que se encuentra el jugador
+    """
     enemy_list = []
 
     for name, obj in inspect.getmembers(sys.modules[__name__]):
@@ -102,7 +107,12 @@ def get_lvl_enemies(lvl):
 
 
 def get_lvl_bosses(lvl):
-    """ Devuelve todos los jefes del nivel """
+    """
+    Devuelve todos los jefes del nivel
+
+    Args:
+        lvl: Nivel en el que se encuentra el jugador
+    """
     boss_list = []
 
     for name, obj in inspect.getmembers(sys.modules[__name__]):

@@ -33,7 +33,7 @@ def play():
     if not player.is_alive():
         print("PERDISTE!")
     elif player.victory:
-        print("GANASTE!")
+        print("La princesa esta en otro castillo!")
 
 if __name__ == '__main__':
     play()

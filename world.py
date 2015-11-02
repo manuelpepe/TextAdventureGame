@@ -29,13 +29,17 @@ def create_layout(cols, rows):
     """
     Crea un layout aleatorio para el mapa
     ¡ROTO!
+
+    Args:
+        rows: Cantidad de filas
+        cols: Cantidad de columnas
     """
     loot_count = 0
     # boss_created = False
     layout = []
-    for y in range(cols):
+    for y in range(rows):
         tile = []
-        for x in range(rows):
+        for x in range(cols):
             n = randint(0, 10)
             if n == 0 and loot_count < 2:
                 room = "LootRoom"
@@ -92,5 +96,9 @@ def test():
 def tile_exists(x, y):
     """
     Si una habitacion existe en el mapa la devuelve
+
+    Args:
+        y: Posicion y
+        x: Posicion x
     """
     return _world.get((x, y))

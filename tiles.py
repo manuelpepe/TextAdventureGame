@@ -102,7 +102,11 @@ class LootRoom(MapTile):
         return "¡Encontraste el item: {}!\nLo agarraste".format(self.item.name)
 
     def add_loot(self, player):
-        """ Agrega el item al inventario del jugador """
+        """ Agrega el item al inventario del jugador
+
+        Args:
+            player: El jugador
+        """
         player.inventory.append(self.item)
 
 
@@ -184,4 +188,3 @@ class BossRoom(MapTile):
             moves.append(actions.ViewInventory())
             moves.append(actions.Win())
             return moves
-
