@@ -31,9 +31,9 @@ def play():
                     break
 
     if not player.is_alive():
-        print("PERDISTE!")
+        print("PERDISTE!\nIgual no te preocupes, la princesa estaba en otro castillo")
     elif player.victory:
-        print("La princesa esta en otro castillo!")
+        print("Lo siento, la princesa esta en otro castillo!")
 
 if __name__ == '__main__':
     play()

@@ -8,7 +8,7 @@ __author__ = 'Manuel'
 """
 
 # Agregar:
-#     - Ara�a\
+#     - Araña
 #     - Fantasma
 #     - Murcielago
 #     - Mago
@@ -18,6 +18,9 @@ __author__ = 'Manuel'
 
 class Enemigo:
     """ La clase principal para los enemigos """
+
+    is_boss = False
+
     def __init__(self, name, hp, damage):
 
         self.name = name
@@ -31,37 +34,33 @@ class Enemigo:
 
 class Soldado(Enemigo):
     lvl = 0
-    is_boss = False
 
     def __init__(self):
         super().__init__(name="Soldado",
                          hp=10,
-                         damage=2)
+                         damage=10)
 
 
 class Guerrero(Enemigo):
     lvl = 0
-    is_boss = False
 
     def __init__(self):
         super().__init__(name="Guerrero",
                          hp=20,
-                         damage=5)
+                         damage=9)
 
 
 class Arquero(Enemigo):
     lvl = 0
-    is_boss = False
 
     def __init__(self):
         super().__init__(name="Arquero",
-                         hp=10,
+                         hp=7,
                          damage=10)
 
 
 class Lancero(Enemigo):
     lvl = 0
-    is_boss = False
 
     def __init__(self):
         super().__init__(name="Lancero",
@@ -69,9 +68,15 @@ class Lancero(Enemigo):
                          damage=10)
 
 
+class Araña(Enemigo):
+    def __init__(self):
+        super().__init__(name="Araña",
+                         hp=15,
+                         damage=15)
+
+
 class MaestroDeArmas(Enemigo):
     lvl = 0
-    is_boss = True
 
     def __init__(self):
         super().__init__(name="Maestro de Armas",
@@ -81,7 +86,6 @@ class MaestroDeArmas(Enemigo):
 
 class DragonRojo(Enemigo):
     lvl = 0
-    is_boss = True
 
     def __init__(self):
         super().__init__(name="Dragon Rojo",
